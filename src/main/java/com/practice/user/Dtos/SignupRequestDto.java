@@ -1,20 +1,13 @@
-package com.practice.user.Models;
+package com.practice.user.Dtos;
 
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 
-import java.util.HashSet;
-import java.util.Set;
-
-@Entity
-public class User extends BaseModel {
+public class SignupRequestDto {
     private String email;
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles = new HashSet<>();
 
     public String getEmail() {
         return email;
@@ -30,13 +23,5 @@ public class User extends BaseModel {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
 }

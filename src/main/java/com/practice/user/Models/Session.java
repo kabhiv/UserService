@@ -6,11 +6,44 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.engine.internal.Cascade;
 
-@Getter
-@Setter
 @Entity
 public class Session extends BaseModel{
     private String token;
-    @ManyToOne(cascade = CascadeType.ALL)
+    private String expiringAt;
+    @ManyToOne
     private User user;
+    @Enumerated(EnumType.ORDINAL)
+    private SessionStatus sessionStatus;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getExpiringAt() {
+        return expiringAt;
+    }
+
+    public void setExpiringAt(String expiringAt) {
+        this.expiringAt = expiringAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public SessionStatus getSessionStatus() {
+        return sessionStatus;
+    }
+
+    public void setSessionStatus(SessionStatus sessionStatus) {
+        this.sessionStatus = sessionStatus;
+    }
 }
