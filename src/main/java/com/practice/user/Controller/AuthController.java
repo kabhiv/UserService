@@ -3,10 +3,9 @@ package com.practice.user.Controller;
 import com.practice.user.Dtos.*;
 import com.practice.user.Exceptions.UserAlreadyExistsException;
 import com.practice.user.Exceptions.UserDoesNotExistException;
+import com.practice.user.Models.SessionStatus;
 import com.practice.user.Service.AuthService;
 import com.practice.user.Service.AuthServiceImp;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,13 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-
-    @Autowired
     private AuthService authService;
 
-//    public AuthController(AuthServiceImp authServiceImp) {
-//        this.authService = authServiceImp;
-//    }
+    public AuthController(AuthServiceImp authServiceImp) {
+        this.authService = authServiceImp;
+    }
 
 //    public AuthController(AuthServiceImp authServiceImp) {
 //        this.authService = authService;
@@ -42,17 +39,15 @@ public class AuthController {
 //        return authService.logout( request.getToken(),request.getUserId(),);
 //    }
 
-//    @PostMapping("/validate")
-//    public ResponseEntity<SessionStatus> validate(@RequestBody ValidateTokenRequestDto request){
-//       SessionStatus sessionStatus = AuthService.validate(request.getUserId(), request.getToken());
-//        return ResponseEntity<>(sessionStatus,HttpStatus.OK);
-//    }
+    @PostMapping("/validate")
+    public ResponseEntity<SessionStatus> validate(@RequestBody ValidateTokenRequestDto request){
+       SessionStatus sessionStatus = authService.validate(request.getToken(), request.getUserId());
+       ResponseEntity response = new ResponseEntity<>(sessionStatus, HttpStatus.OK);
+        return response;
+    }
     @PostMapping("/signup")
     public ResponseEntity<UserDto> signup(@RequestBody SignupRequestDto request) throws UserAlreadyExistsException {
         UserDto userdto= authService.signup(request.getEmail(),request.getPassword());
         return new ResponseEntity<>(userdto, HttpStatus.OK);
-
-
-
     }
 }

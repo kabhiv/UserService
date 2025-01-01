@@ -5,5 +5,7 @@ public enum SessionStatus {
 
     EXPIRED,
 
-    LOGGED_OUT
+    LOGGED_OUT,
+
+    INVALID
 }

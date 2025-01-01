@@ -47,6 +47,7 @@ public class AuthServiceImp implements AuthService {
         return UserDto.from(savedUser);
     }
 
+
     @Override
     public ResponseEntity<UserDto> login(String email, String password) throws UserDoesNotExistException {
 
@@ -87,11 +88,26 @@ public class AuthServiceImp implements AuthService {
 //
 //    }
 
-//    @Override
-//    public Optional<UserDto> validate(String username, String password) {
-//
-//        return Optional.of(UserDto);
-//    }
+    @Override
+    public SessionStatus validate(String token, Long userId) {
+
+        Optional<Session> sessionOptional = sessionRepository.findByTokenAndUser_Id(token,userId);
+
+        if(sessionOptional.isEmpty()) {
+            return SessionStatus.INVALID;
+        }
+
+        Session session = sessionOptional.get();
+
+        if(session.getSessionStatus() != SessionStatus.ACTIVE) {
+            return SessionStatus.EXPIRED;
+        }
+
+
+
+
+        return session.getSessionStatus();
+    }
 
 
 }
