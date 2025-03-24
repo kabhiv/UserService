@@ -1,6 +1,6 @@
 package com.practice.user.Dtos;
 
-public class LoginDtos {
+public class LoginRequestDto {
 
     private String email;
     private String password;

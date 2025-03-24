@@ -1,18 +1,32 @@
 package com.practice.user.Dtos;
-
 import com.practice.user.Models.Role;
 import com.practice.user.Models.User;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+
 
 
 
 public class UserDto {
+    private String name;
     private String email;
-    private Set<Role> role = new HashSet<>();
+    private List<Role> roles;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
     public String getEmail() {
         return email;
@@ -22,18 +36,12 @@ public class UserDto {
         this.email = email;
     }
 
-    public Set<Role> getRole() {
-        return role;
-    }
-
-    public void setRole(Set<Role> role) {
-        this.role = role;
-    }
 
     public static UserDto from(User user) {
         UserDto userDto = new UserDto();
         userDto.setEmail(user.getEmail());
-        userDto.setRole(user.getRoles());
+        userDto.setName(user.getName());
+        userDto.setRoles(user.getRoles());
 
         return userDto;
     }

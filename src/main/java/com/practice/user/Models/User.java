@@ -7,14 +7,24 @@ import lombok.Setter;
 
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 public class User extends BaseModel {
+    private String name;
     private String email;
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles = new HashSet<>();
+    @ManyToMany
+    private List<Role> roles;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getEmail() {
         return email;
@@ -32,11 +42,13 @@ public class User extends BaseModel {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 }
+
+
